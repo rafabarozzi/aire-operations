@@ -1,0 +1,24 @@
+name: operations-v1
+on: [pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  contract-and-api:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: demo
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 2s --health-retries 20
+    env:
+      DATABASE_URL: postgresql://postgres:demo@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-test.txt
+      - run: python -m unittest discover -s tests -v
+      - run: python -m contracts.export && git diff --exit-code contracts

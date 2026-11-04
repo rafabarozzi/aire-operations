@@ -60,6 +60,69 @@
       "title": "CloseRequest",
       "type": "object"
     },
+    "Context": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_public": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Affected Public"
+        },
+        "business_impact": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Business Impact"
+        },
+        "coordinator": {
+          "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+          "title": "Coordinator",
+          "type": "string"
+        },
+        "extent": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Extent"
+        },
+        "team": {
+          "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+          "title": "Team",
+          "type": "string"
+        }
+      },
+      "required": [
+        "business_impact",
+        "affected_public",
+        "extent",
+        "team",
+        "coordinator"
+      ],
+      "title": "Context",
+      "type": "object"
+    },
     "Correction": {
       "additionalProperties": false,
       "properties": {

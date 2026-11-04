@@ -61,6 +61,69 @@
         "title": "CloseRequest",
         "type": "object"
       },
+      "Context": {
+        "additionalProperties": false,
+        "properties": {
+          "affected_public": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Affected Public"
+          },
+          "business_impact": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Impact"
+          },
+          "coordinator": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Coordinator",
+            "type": "string"
+          },
+          "extent": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extent"
+          },
+          "team": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Team",
+            "type": "string"
+          }
+        },
+        "required": [
+          "business_impact",
+          "affected_public",
+          "extent",
+          "team",
+          "coordinator"
+        ],
+        "title": "Context",
+        "type": "object"
+      },
       "Correction": {
         "additionalProperties": false,
         "properties": {
@@ -1546,6 +1609,84 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Draft"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/context": {
+      "post": {
+        "operationId": "incident_context",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Context"
               }
             }
           },
