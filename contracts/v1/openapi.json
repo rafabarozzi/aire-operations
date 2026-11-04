@@ -1,0 +1,2664 @@
+{
+  "components": {
+    "schemas": {
+      "Approval": {
+        "additionalProperties": false,
+        "properties": {
+          "publication_id": {
+            "format": "uuid",
+            "title": "Publication Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "publication_id"
+        ],
+        "title": "Approval",
+        "type": "object"
+      },
+      "CloseRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "provider": {
+            "anyOf": [
+              {
+                "enum": [
+                  "teams",
+                  "slack"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider"
+          },
+          "room_id": {
+            "anyOf": [
+              {
+                "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Room Id"
+          },
+          "target": {
+            "enum": [
+              "incident",
+              "room"
+            ],
+            "title": "Target",
+            "type": "string"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "CloseRequest",
+        "type": "object"
+      },
+      "Correction": {
+        "additionalProperties": false,
+        "properties": {
+          "correction": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Correction",
+            "type": "string"
+          },
+          "event_id": {
+            "format": "uuid",
+            "title": "Event Id",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "fact_at": {
+            "format": "date-time",
+            "title": "Fact At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event_id",
+          "correction",
+          "fact_at"
+        ],
+        "title": "Correction",
+        "type": "object"
+      },
+      "Create": {
+        "additionalProperties": false,
+        "properties": {
+          "affected_public": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Affected Public"
+          },
+          "business_impact": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Impact"
+          },
+          "coordinator": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Coordinator",
+            "type": "string"
+          },
+          "extent": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extent"
+          },
+          "journeys": {
+            "items": {
+              "$ref": "#/components/schemas/Journey"
+            },
+            "title": "Journeys",
+            "type": "array"
+          },
+          "origin": {
+            "default": "manual",
+            "enum": [
+              "manual",
+              "datadog",
+              "dynatrace"
+            ],
+            "title": "Origin",
+            "type": "string"
+          },
+          "severity": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Severity",
+            "type": "string"
+          },
+          "team": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Team",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "severity",
+          "team",
+          "coordinator"
+        ],
+        "title": "Create",
+        "type": "object"
+      },
+      "Draft": {
+        "additionalProperties": false,
+        "properties": {
+          "audience": {
+            "enum": [
+              "operations",
+              "management",
+              "customer"
+            ],
+            "title": "Audience",
+            "type": "string"
+          },
+          "text": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "audience",
+          "text"
+        ],
+        "title": "Draft",
+        "type": "object"
+      },
+      "Duplicate": {
+        "additionalProperties": false,
+        "properties": {
+          "principal_id": {
+            "format": "uuid",
+            "title": "Principal Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "principal_id"
+        ],
+        "title": "Duplicate",
+        "type": "object"
+      },
+      "Event": {
+        "additionalProperties": false,
+        "properties": {
+          "author": {
+            "title": "Author",
+            "type": "string"
+          },
+          "data": {
+            "additionalProperties": true,
+            "title": "Data",
+            "type": "object"
+          },
+          "fact_at": {
+            "format": "date-time",
+            "title": "Fact At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "incident_id": {
+            "format": "uuid",
+            "title": "Incident Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "origin": {
+            "title": "Origin",
+            "type": "string"
+          },
+          "recorded_at": {
+            "format": "date-time",
+            "title": "Recorded At",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "incident_id",
+          "version",
+          "kind",
+          "author",
+          "origin",
+          "fact_at",
+          "recorded_at",
+          "data"
+        ],
+        "title": "Event",
+        "type": "object"
+      },
+      "External": {
+        "additionalProperties": false,
+        "properties": {
+          "identifier": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Identifier",
+            "type": "string"
+          },
+          "provider": {
+            "enum": [
+              "servicenow",
+              "jira_service_management"
+            ],
+            "title": "Provider",
+            "type": "string"
+          },
+          "sync_state": {
+            "enum": [
+              "pending",
+              "synced",
+              "failed"
+            ],
+            "title": "Sync State",
+            "type": "string"
+          },
+          "ticket_state": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ticket State"
+          }
+        },
+        "required": [
+          "provider",
+          "identifier",
+          "sync_state"
+        ],
+        "title": "External",
+        "type": "object"
+      },
+      "Forecast": {
+        "additionalProperties": false,
+        "properties": {
+          "at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "At"
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author"
+          },
+          "recorded_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recorded At"
+          },
+          "status": {
+            "enum": [
+              "unknown",
+              "confirmed",
+              "overdue"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "at",
+          "author",
+          "recorded_at",
+          "status"
+        ],
+        "title": "Forecast",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "Incident": {
+        "additionalProperties": false,
+        "properties": {
+          "affected_public": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Affected Public"
+          },
+          "business_impact": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Impact"
+          },
+          "coordinator": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Coordinator",
+            "type": "string"
+          },
+          "duplicate_of": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duplicate Of"
+          },
+          "extent": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extent"
+          },
+          "forecast": {
+            "$ref": "#/components/schemas/Forecast"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "journeys": {
+            "items": {
+              "$ref": "#/components/schemas/Journey"
+            },
+            "title": "Journeys",
+            "type": "array"
+          },
+          "last_update": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Update"
+          },
+          "next_update": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Update"
+          },
+          "origin": {
+            "default": "manual",
+            "enum": [
+              "manual",
+              "datadog",
+              "dynatrace"
+            ],
+            "title": "Origin",
+            "type": "string"
+          },
+          "pause": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Pause"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "policy_override": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Policy"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "references": {
+            "items": {
+              "$ref": "#/components/schemas/External"
+            },
+            "title": "References",
+            "type": "array"
+          },
+          "rooms": {
+            "items": {
+              "$ref": "#/components/schemas/Room"
+            },
+            "title": "Rooms",
+            "type": "array"
+          },
+          "severity": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Severity",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "investigation",
+              "mitigation",
+              "monitoring",
+              "resolved",
+              "closed"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "team": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Team",
+            "type": "string"
+          },
+          "tenant": {
+            "title": "Tenant",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "title",
+          "severity",
+          "team",
+          "coordinator",
+          "id",
+          "tenant",
+          "version",
+          "state",
+          "duplicate_of",
+          "rooms",
+          "references",
+          "last_update",
+          "next_update",
+          "forecast",
+          "policy_override",
+          "pause"
+        ],
+        "title": "Incident",
+        "type": "object"
+      },
+      "Journey": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "impact": {
+            "default": "assessing",
+            "enum": [
+              "assessing",
+              "degraded",
+              "partially_unavailable",
+              "unavailable",
+              "recovered"
+            ],
+            "title": "Impact",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "Journey",
+        "type": "object"
+      },
+      "OrgPolicy": {
+        "additionalProperties": false,
+        "properties": {
+          "additional_teams": {
+            "items": {
+              "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+              "type": "string"
+            },
+            "title": "Additional Teams",
+            "type": "array"
+          },
+          "closure_roles": {
+            "items": {
+              "enum": [
+                "operator",
+                "coordinator",
+                "admin"
+              ],
+              "type": "string"
+            },
+            "title": "Closure Roles",
+            "type": "array"
+          },
+          "escalation_minutes": {
+            "default": 10,
+            "maximum": 10080.0,
+            "minimum": 1.0,
+            "title": "Escalation Minutes",
+            "type": "integer"
+          },
+          "interval_minutes": {
+            "default": 30,
+            "maximum": 10080.0,
+            "minimum": 1.0,
+            "title": "Interval Minutes",
+            "type": "integer"
+          },
+          "recovery_roles": {
+            "items": {
+              "enum": [
+                "operator",
+                "coordinator",
+                "admin"
+              ],
+              "type": "string"
+            },
+            "title": "Recovery Roles",
+            "type": "array"
+          },
+          "responder": {
+            "anyOf": [
+              {
+                "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Responder"
+          },
+          "severities": {
+            "items": {
+              "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Severities",
+            "type": "array"
+          },
+          "severity_roles": {
+            "items": {
+              "enum": [
+                "operator",
+                "coordinator",
+                "admin"
+              ],
+              "type": "string"
+            },
+            "title": "Severity Roles",
+            "type": "array"
+          }
+        },
+        "title": "OrgPolicy",
+        "type": "object"
+      },
+      "Pause": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "until": {
+            "format": "date-time",
+            "title": "Until",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason",
+          "until"
+        ],
+        "title": "Pause",
+        "type": "object"
+      },
+      "Policy": {
+        "additionalProperties": false,
+        "properties": {
+          "additional_teams": {
+            "items": {
+              "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+              "type": "string"
+            },
+            "title": "Additional Teams",
+            "type": "array"
+          },
+          "closure_roles": {
+            "items": {
+              "enum": [
+                "operator",
+                "coordinator",
+                "admin"
+              ],
+              "type": "string"
+            },
+            "title": "Closure Roles",
+            "type": "array"
+          },
+          "escalation_minutes": {
+            "default": 10,
+            "maximum": 10080.0,
+            "minimum": 1.0,
+            "title": "Escalation Minutes",
+            "type": "integer"
+          },
+          "interval_minutes": {
+            "default": 30,
+            "maximum": 10080.0,
+            "minimum": 1.0,
+            "title": "Interval Minutes",
+            "type": "integer"
+          },
+          "recovery_roles": {
+            "items": {
+              "enum": [
+                "operator",
+                "coordinator",
+                "admin"
+              ],
+              "type": "string"
+            },
+            "title": "Recovery Roles",
+            "type": "array"
+          },
+          "responder": {
+            "anyOf": [
+              {
+                "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Responder"
+          },
+          "severity_roles": {
+            "items": {
+              "enum": [
+                "operator",
+                "coordinator",
+                "admin"
+              ],
+              "type": "string"
+            },
+            "title": "Severity Roles",
+            "type": "array"
+          }
+        },
+        "title": "Policy",
+        "type": "object"
+      },
+      "PolicyView": {
+        "additionalProperties": false,
+        "properties": {
+          "policy": {
+            "$ref": "#/components/schemas/OrgPolicy"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "policy"
+        ],
+        "title": "PolicyView",
+        "type": "object"
+      },
+      "Publication": {
+        "additionalProperties": false,
+        "properties": {
+          "approved_by": {
+            "title": "Approved By",
+            "type": "string"
+          },
+          "audience": {
+            "enum": [
+              "operations",
+              "management",
+              "customer"
+            ],
+            "title": "Audience",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "published_at": {
+            "format": "date-time",
+            "title": "Published At",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "audience",
+          "text",
+          "approved_by",
+          "published_at"
+        ],
+        "title": "Publication",
+        "type": "object"
+      },
+      "Room": {
+        "additionalProperties": false,
+        "properties": {
+          "confirmation": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmation"
+          },
+          "provider": {
+            "enum": [
+              "teams",
+              "slack"
+            ],
+            "title": "Provider",
+            "type": "string"
+          },
+          "room_id": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Room Id",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "requested",
+              "open",
+              "closed"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider",
+          "room_id",
+          "state"
+        ],
+        "title": "Room",
+        "type": "object"
+      },
+      "Severity": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "severity": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Severity",
+            "type": "string"
+          }
+        },
+        "required": [
+          "severity",
+          "reason"
+        ],
+        "title": "Severity",
+        "type": "object"
+      },
+      "SimMessage": {
+        "additionalProperties": false,
+        "properties": {
+          "message": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "provider": {
+            "enum": [
+              "teams",
+              "slack"
+            ],
+            "title": "Provider",
+            "type": "string"
+          },
+          "room_id": {
+            "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+            "title": "Room Id",
+            "type": "string"
+          },
+          "update": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Update"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "provider",
+          "room_id"
+        ],
+        "title": "SimMessage",
+        "type": "object"
+      },
+      "Transition": {
+        "additionalProperties": false,
+        "properties": {
+          "confirmation": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmation"
+          },
+          "reason": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "investigation",
+              "mitigation",
+              "monitoring",
+              "resolved",
+              "closed"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "state",
+          "reason"
+        ],
+        "title": "Transition",
+        "type": "object"
+      },
+      "Update": {
+        "additionalProperties": false,
+        "properties": {
+          "actions": {
+            "items": {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Actions",
+            "type": "array"
+          },
+          "evidence": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "fact_at": {
+            "format": "date-time",
+            "title": "Fact At",
+            "type": "string"
+          },
+          "impact": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Impact"
+          },
+          "next_step": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Step"
+          },
+          "next_update": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Update"
+          },
+          "no_change": {
+            "default": false,
+            "title": "No Change",
+            "type": "boolean"
+          },
+          "owner": {
+            "anyOf": [
+              {
+                "pattern": "^[A-Za-z0-9_.-]{1,100}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner"
+          },
+          "recovery_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recovery At"
+          },
+          "situation": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Situation"
+          }
+        },
+        "required": [
+          "recovery_at",
+          "fact_at"
+        ],
+        "title": "Update",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "title": "AIRE Operations",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/v1/incidents": {
+      "get": {
+        "operationId": "incidents_v1_incidents_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Incident"
+                  },
+                  "title": "Response Incidents V1 Incidents Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Incidents"
+      },
+      "post": {
+        "operationId": "create_v1_incidents_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Create"
+      }
+    },
+    "/v1/incidents/{incident_id}": {
+      "get": {
+        "operationId": "incident_v1_incidents__incident_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Incident"
+      }
+    },
+    "/v1/incidents/{incident_id}/approvals": {
+      "post": {
+        "operationId": "incident_approvals",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approval"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/closure-requests": {
+      "post": {
+        "operationId": "incident_closure_requests",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/communications": {
+      "post": {
+        "operationId": "incident_communications",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Draft"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/corrections": {
+      "post": {
+        "operationId": "incident_corrections",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Correction"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/duplicate": {
+      "post": {
+        "operationId": "incident_duplicate",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Duplicate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/journeys": {
+      "post": {
+        "operationId": "incident_journeys",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Journey"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/pause": {
+      "post": {
+        "operationId": "incident_pause",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pause"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/policy": {
+      "post": {
+        "operationId": "incident_policy",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Policy"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/references": {
+      "post": {
+        "operationId": "incident_references",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/External"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/rooms": {
+      "post": {
+        "operationId": "incident_rooms",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Room"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/severity": {
+      "post": {
+        "operationId": "incident_severity",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Severity"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/simulator/messages": {
+      "post": {
+        "operationId": "incident_simulator_messages",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimMessage"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/state": {
+      "post": {
+        "operationId": "incident_state",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transition"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/incidents/{incident_id}/timeline": {
+      "get": {
+        "operationId": "timeline_v1_incidents__incident_id__timeline_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "after_version",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "After Version",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Event"
+                  },
+                  "title": "Response Timeline V1 Incidents  Incident Id  Timeline Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Timeline"
+      }
+    },
+    "/v1/incidents/{incident_id}/updates": {
+      "post": {
+        "operationId": "incident_updates",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Update"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Command"
+      }
+    },
+    "/v1/policy": {
+      "get": {
+        "operationId": "org_policy_v1_policy_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicyView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Org Policy"
+      },
+      "put": {
+        "operationId": "set_policy_v1_policy_put",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quoted aggregate version",
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "Quoted aggregate version",
+              "pattern": "^\"[0-9]+\"$",
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrgPolicy"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicyView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Set Policy"
+      }
+    },
+    "/v1/publications/{audience}/{incident_id}": {
+      "get": {
+        "operationId": "publications_v1_publications__audience___incident_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "audience",
+            "required": true,
+            "schema": {
+              "enum": [
+                "operations",
+                "management",
+                "customer"
+              ],
+              "title": "Audience",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Incident Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Publication"
+                  },
+                  "title": "Response Publications V1 Publications  Audience   Incident Id  Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Publications"
+      }
+    }
+  }
+}
