@@ -1,0 +1,82 @@
+{
+  "incident": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "tenant": "lab",
+    "version": 2,
+    "title": "Checkout com falhas",
+    "severity": "P2",
+    "origin": "datadog",
+    "state": "investigation",
+    "team": "checkout",
+    "coordinator": "plantao",
+    "business_impact": "Pedidos recusados",
+    "affected_public": null,
+    "extent": null,
+    "journeys": [
+      {
+        "id": "checkout",
+        "impact": "degraded"
+      }
+    ],
+    "duplicate_of": null,
+    "rooms": [
+      {
+        "provider": "teams",
+        "room_id": "room1",
+        "state": "open",
+        "confirmation": null
+      }
+    ],
+    "references": [
+      {
+        "provider": "servicenow",
+        "identifier": "INC-LAB",
+        "sync_state": "synced",
+        "ticket_state": null
+      }
+    ],
+    "last_update": null,
+    "next_update": null,
+    "forecast": {
+      "at": null,
+      "author": null,
+      "recorded_at": null,
+      "status": "unknown"
+    },
+    "policy_override": null,
+    "pause": null
+  },
+  "timeline": [
+    {
+      "id": "00000000-0000-4000-9000-000000000001",
+      "incident_id": "00000000-0000-4000-8000-000000000001",
+      "version": 1,
+      "kind": "create",
+      "author": "plantao",
+      "origin": "manual",
+      "fact_at": "2026-11-04T10:01:00Z",
+      "recorded_at": "2026-11-04T10:02:00Z",
+      "data": {
+        "title": "Checkout com falhas"
+      }
+    },
+    {
+      "id": "00000000-0000-4000-9000-000000000002",
+      "incident_id": "00000000-0000-4000-8000-000000000001",
+      "version": 2,
+      "kind": "updates",
+      "author": "plantao",
+      "origin": "manual",
+      "fact_at": "2026-11-04T10:02:00Z",
+      "recorded_at": "2026-11-04T10:03:00Z",
+      "data": {
+        "situation": "Equipe investigando",
+        "impact": "Pedidos recusados",
+        "actions": [],
+        "fact_at": "2026-11-04T10:02:00Z",
+        "recovery_at": null,
+        "evidence": []
+      }
+    }
+  ]
+}
