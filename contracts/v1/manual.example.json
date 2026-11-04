@@ -1,0 +1,1 @@
+{"title":"Checkout sintético","origin":"manual","severity":"P2","team":"payments","coordinator":"ana","journeys":[{"id":"checkout","impact":"degraded"}],"business_impact":"Pedidos aguardando confirmação"}
