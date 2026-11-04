@@ -26,7 +26,7 @@ jobs:
         run: |
           python -m operations.dev keys
           docker compose up --build -d
-          curl --retry 20 --retry-delay 1 --retry-connrefused -fsS http://127.0.0.1:8080/openapi.json > /tmp/live-api.json
+          curl --retry 20 --retry-delay 1 --retry-all-errors -fsS http://127.0.0.1:8080/openapi.json > /tmp/live-api.json
           token=$(python -m operations.dev token)
           curl -fsS http://127.0.0.1:8080/v1/incidents \
             -H "Authorization: Bearer $token" -H 'Idempotency-Key: compose-smoke' \
